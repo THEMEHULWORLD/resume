@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mehul Yadav - AI Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+            color: #212529;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #0077B6;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 6px 8px -2px rgba(0, 0, 0, 0.05);
+        }
+        .modal-backdrop {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #0077B6;
+            border: 3px solid #F8F9FA;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 500px;
+            max-height: 70vh;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .button-primary {
+            background: linear-gradient(45deg, #0077B6, #023E8A);
+            transition: all 0.3s ease;
+        }
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 119, 182, 0.4);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+            animation-delay: var(--delay);
+        }
+        @media (min-width: 768px) {
+            .timeline-item:nth-child(even) {
+                left: calc(50% + 32px);
+                border-left: none;
+                border-right: 2px solid #E9ECEF;
+                padding-left: 0;
+                padding-right: 40px;
+                text-align: right;
+            }
+            .timeline-item:nth-child(even)::before {
+                left: auto;
+                right: -32px;
+            }
+            .timeline-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .timeline-container > div {
+                width: 50%;
+                padding: 0 20px;
+            }
+            .timeline-container > div:nth-child(odd) {
+                align-self: flex-start;
+                padding-left: 0;
+            }
+            .timeline-container > div:nth-child(even) {
+                align-self: flex-end;
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <a href="#home" class="text-2xl font-bold text-gray-800 hover:text-gray-600 transition-colors">Mehul Yadav</a>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-gray-600 font-medium">About</a>
+                <a href="#skills" class="nav-link text-gray-600 font-medium">Skills</a>
+                <a href="#projects" class="nav-link text-gray-600 font-medium">Projects</a>
+                <a href="#experience" class="nav-link text-gray-600 font-medium">Experience</a>
+                <a href="#education" class="nav-link text-gray-600 font-medium">Education</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white/90">
+            <a href="#about" class="block py-2 nav-link text-gray-600 font-medium">About</a>
+            <a href="#skills" class="block py-2 nav-link text-gray-600 font-medium">Skills</a>
+            <a href="#projects" class="block py-2 nav-link text-gray-600 font-medium">Projects</a>
+            <a href="#experience" class="block py-2 nav-link text-gray-600 font-medium">Experience</a>
+            <a href="#education" class="block py-2 nav-link text-gray-600 font-medium">Education</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-16">
+
+        <section id="home" class="flex flex-col md:flex-row items-center justify-center min-h-[70vh] mb-24 fade-in-section" style="--delay: 0s;">
+            <div class="text-center md:text-left md:pr-12 max-w-2xl">
+                <h1 class="text-6xl md:text-7xl font-bold text-gray-800 mb-4 leading-tight">Mehul Yadav</h1>
+                <p class="text-3xl md:text-4xl font-light text-gray-600 mb-8">AI Engineer specializing in intelligent and scalable systems.</p>
+                <a href="#projects" class="inline-block px-8 py-4 text-lg font-semibold text-white rounded-full shadow-lg button-primary">
+                    Explore My Work
+                </a>
+            </div>
+        </section>
+
+        <section id="about" class="mb-24 fade-in-section" style="--delay: 0.2s;">
+            <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">About Me</h2>
+            <div class="max-w-4xl mx-auto bg-white p-12 rounded-2xl shadow-xl">
+                <p class="text-lg text-gray-700 leading-relaxed text-center">
+                    A highly motivated AI Engineer with a strong foundation in machine learning, deep learning, and data analysis. I thrive on designing, developing, and deploying robust AI models to solve complex business problems. My passion lies in building innovative and scalable intelligent systems, and I am proficient in a range of programming languages and frameworks. I am eager to contribute my skills to a forward-thinking team and tackle the next generation of challenges in artificial intelligence.
+                </p>
+                <div class="mt-8 flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8 text-gray-600">
+                    <span class="flex items-center justify-center">
+                        <span class="mr-2">📧</span> themehul@outlook.com
+                    </span>
+                    <a href="#" target="_blank" class="flex items-center justify-center hover:text-blue-500 transition-colors">
+                        <span class="mr-2">🔗</span> www.linkedin.com/in/mehul-yadav-00ba41259
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-24 fade-in-section" style="--delay: 0.4s;">
+            <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">Technical Skills</h2>
+            <p class="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto text-center mb-8">
+                This radar chart provides a comprehensive overview of my technical capabilities. Each axis represents a core skill area, and the filled area indicates my proficiency. A larger area signifies a stronger and more balanced skill set across the board.
+            </p>
+            <div class="bg-white p-12 rounded-2xl shadow-xl">
+                <div class="chart-container">
+                    
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="mb-24 fade-in-section" style="--delay: 0.6s;">
+            <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">Key Projects</h2>
+            <p class="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto text-center mb-12">
+                Explore some of my key projects, where I have applied my skills to solve real-world problems. Each card provides a brief overview; click to learn more about the project's details and my contributions.
+            </p>
+            <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </section>
+
+        <section id="experience" class="mb-24 fade-in-section" style="--delay: 0.8s;">
+            <h2 class="text-4xl font-bold mb-12 text-center text-gray-800">Professional Experience</h2>
+            <div class="timeline-container max-w-3xl mx-auto relative md:border-l-2 md:border-gray-300 pl-10 md:pl-0">
+                <div class="mb-10 fade-in-section" style="--delay: 0.9s;">
+                    <div class="timeline-item relative bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-1">AI Engineer</h3>
+                        <p class="font-medium text-gray-600">[Cisco] | [jun-2024] - [sep-2024]</p>
+                        <div class="experience-details mt-4 text-gray-700 space-y-2">
+                            <p>● Developed and deployed a sentiment analysis model that improved customer feedback processing time by 30%.</p>
+                            <p>● Collaborated with a cross-functional team to integrate a predictive model into the company's main application.</p>
+                            <p>● Implemented an MLOps pipeline using AWS SageMaker to automate model training and deployment.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-10 fade-in-section" style="--delay: 1s;">
+                    <div class="timeline-item relative bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-1">Junior Data Scientist</h3>
+                        <p class="font-medium text-gray-600"></p>
+                        <div class="experience-details mt-4 text-gray-700 space-y-2">
+                            <p>● Assisted in data cleaning, preprocessing, and feature engineering for various machine learning projects.</p>
+                            <p>● Built and evaluated initial prototype models for proof-of-concept demonstrations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="mb-24 fade-in-section" style="--delay: 1.2s;">
+            <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">Education & Certifications</h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-bold mb-3 text-center">Education</h3>
+                    <p class="text-xl font-semibold text-center">[Bennett University]</p>
+                    <p class="text-lg text-gray-600 text-center">[B-tech, CSE.specialization in AI]</p>
+                    <p class="text-md text-gray-500 text-center">[2022-2026]</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-bold mb-3 text-center">Certifications</h3>
+                    <ul class="list-disc list-inside text-gray-700 text-left space-y-2">
+                        <li>AWS Certified Machine Learning – Specialty</li>
+                        <li>Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization</li>
+                        <li>Supervised Machine Learning: Classification</li>
+                        <li>Exploratory Data Analysis for Machine Learning</li>
+                        <li>Unsupervised Machine Learning</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p class="text-sm">&copy; 2025 Mehul Yadav. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="project-modal" class="modal-backdrop fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden opacity-0">
+        <div class="modal-content bg-white rounded-lg shadow-2xl w-full max-w-2xl transform scale-95">
+            <div class="p-8">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 id="modal-title" class="text-3xl font-bold mb-2 text-gray-800"></h3>
+                        <p id="modal-tech" class="text-sm text-gray-500 mb-4"></p>
+                    </div>
+                    <button id="modal-close-button" class="text-gray-500 text-3xl hover:text-gray-800 transition-colors">&times;</button>
+                </div>
+                <div id="modal-description" class="text-gray-700 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const skillsData = {
+                labels: [
+                    'Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'NLP', 'Computer Vision', 'Data Analysis', 'Cloud Platforms', 'MLOps'
+                ],
+                datasets: [{
+                    label: 'Proficiency',
+                    data: [5, 4.5, 4.5, 5, 4, 4.5, 5, 4, 4],
+                    backgroundColor: 'rgba(0, 119, 182, 0.4)',
+                    borderColor: 'rgba(0, 119, 182, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(2, 62, 138, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(2, 62, 138, 1)'
+                }]
+            };
+
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: skillsData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(100, 100, 100, 0.2)'
+                            },
+                            grid: {
+                                color: 'rgba(100, 100, 100, 0.2)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#212529'
+                            },
+                            ticks: {
+                                display: false,
+                                max: 5
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Proficiency: ' + context.parsed.r + ' / 5';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const projects = [
+                {
+                    id: 1,
+                    title: 'Image Classification for Medical Diagnostics',
+                    tech: 'Python, TensorFlow, Keras, OpenCV',
+                    description: '<p>Developed a deep learning model to classify medical images with high accuracy. The project involved extensive data preprocessing, augmentation, and training a Convolutional Neural Network (CNN).</p><ul class="list-disc list-inside mt-4 space-y-2"><li>Achieved 95% accuracy on the test dataset.</li><li>Implemented transfer learning techniques to improve model performance.</li><li>Created a simple Flask API to serve the model for inference.</li></ul>'
+                },
+                {
+                    id: 2,
+                    title: 'Customer Churn Prediction System',
+                    tech: 'Python, Scikit-learn, XGBoost, Pandas',
+                    description: '<p>Engineered a predictive model to identify customers at high risk of churning. This system helps businesses proactively retain customers by offering targeted incentives.</p><ul class="list-disc list-inside mt-4 space-y-2"><li>Performed feature engineering on a large dataset of customer interactions.</li><li>Trained and evaluated several models, selecting XGBoost for its superior performance.</li><li>The final model resulted in a 15% reduction in customer churn for the pilot program.</li></ul>'
+                },
+                {
+                    id: 3,
+                    title: 'Real-time Object Detection',
+                    tech: 'Python, PyTorch, OpenCV',
+                    description: '<p>Built an object detection system capable of identifying and tracking multiple objects in a video stream in real-time. The project utilized the YOLOv5 architecture for fast and accurate detection.</p><ul class="list-disc list-inside mt-4 space-y-2"><li>Optimized the model for performance on a standard CPU.</li><li>Integrated the system with a webcam feed for live demonstrations.</li><li>The system can detect over 20 different object classes simultaneously.</li></ul>'
+                },
+                {
+                    id: 4,
+                    title: 'NLP-based Chatbot',
+                    tech: 'Python, NLTK, spaCy, Flask',
+                    description: '<p>Developed a conversational AI chatbot for customer service. The bot uses natural language processing to understand user queries and provide relevant responses.</p><ul class="list-disc list-inside mt-4 space-y-2"><li>Created a custom intent recognition model to classify user questions.</li><li>Designed a rule-based response generation system to provide accurate answers.</li><li>Successfully handled over 5,000 unique queries during beta testing.</li></ul>'
+                },
+                {
+                    id: 5,
+                    title: 'Polyglot Code Assistant',
+                    tech: 'Natural Language Processing (NLP)',
+                    description: '<p>This tool would function like a sophisticated version of GitHub Copilot but with a focus on translating code logic between different programming languages.</p><ul class="list-disc list-inside mt-4 space-y-2"><li>A developer writes a function or a piece of logic in one language (e.g., Python), and the AI assistant provides the equivalent implementation in another language (e.g., JavaScript, Rust, or Java).</li><ol> <li>Core AI Concepts:</li> </ol></ul>'
+                }
+            ];
+
+            const projectsGrid = document.getElementById('projects-grid');
+            const modal = document.getElementById('project-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalTech = document.getElementById('modal-tech');
+            const modalDescription = document.getElementById('modal-description');
+            const modalCloseButton = document.getElementById('modal-close-button');
+
+            projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'card bg-white p-8 rounded-2xl shadow-xl cursor-pointer fade-in-section';
+                card.style.setProperty('--delay', `${project.id * 0.1 + 0.6}s`);
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold mb-2">${project.title}</h3>
+                    <p class="text-gray-500 text-sm">${project.tech}</p>
+                `;
+                card.addEventListener('click', () => openModal(project));
+                projectsGrid.appendChild(card);
+            });
+
+            function openModal(project) {
+                modalTitle.textContent = project.title;
+                modalTech.textContent = project.tech;
+                modalDescription.innerHTML = project.description;
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.querySelector('.modal-content').classList.remove('scale-95');
+                }, 10);
+            }
+
+            function closeModal() {
+                modal.classList.add('opacity-0');
+                modal.querySelector('.modal-content').classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+
+            modalCloseButton.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    if(mobileMenu.classList.contains('hidden') === false){
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
